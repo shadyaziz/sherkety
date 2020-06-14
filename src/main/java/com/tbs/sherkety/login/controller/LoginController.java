@@ -16,6 +16,7 @@ import com.tbs.sherkety.login.exception.PasswordIncorrectException;
 import com.tbs.sherkety.login.exception.UserAlreadyExistException;
 import com.tbs.sherkety.login.exception.UserNotFoundException;
 import com.tbs.sherkety.login.model.User;
+import com.tbs.sherkety.login.model.view.UserSignIn;
 
 @RestController
 public class LoginController {
@@ -29,12 +30,12 @@ public class LoginController {
   public ResponseEntity<HttpStatus> signin(@RequestBody User user) {
 
     try {
-      User dbUser = Optional.of(userDao.findByEmail(user.getEmail()))
+      UserSignIn dbUser = Optional.ofNullable(userDao.findByEmail(user.getEmail()))
           .orElseThrow(() -> new UserNotFoundException());
 
-      String hashedPassword = LoginUtils.getHashedString(user.getPassword());
+      // String hashedPassword = LoginUtils.getHashedString(user.getPassword());
 
-      if (!hashedPassword.equals(dbUser.getHashedPassword())) {
+      if (!LoginUtils.comparePasswords(user.getPassword(), dbUser.getEncodedPassword())) {
         throw new PasswordIncorrectException();
       }
       return new ResponseEntity<HttpStatus>(HttpStatus.OK);
@@ -53,7 +54,7 @@ public class LoginController {
         throw new UserAlreadyExistException();
       }
 
-      user.setHashedPassword(LoginUtils.getHashedString(user.getPassword()));
+      user.setEncodedPassword(LoginUtils.getEncodedString(user.getPassword()));
       userDao.save(user);
       return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 

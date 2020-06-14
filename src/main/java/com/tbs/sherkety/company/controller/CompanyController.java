@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tbs.sherkety.company.dao.CompanyDao;
 import com.tbs.sherkety.company.exception.CompanyNotFoundException;
 import com.tbs.sherkety.company.model.Company;
-import com.tbs.sherkety.company.model.CompanyView;
+import com.tbs.sherkety.company.model.view.CompanyView;
 import com.tbs.sherkety.company.review.dao.ReviewDao;
 import com.tbs.sherkety.company.review.model.Review;
 
@@ -47,9 +47,7 @@ public class CompanyController {
     } catch (CompanyNotFoundException e) {
       logger.error("Company : {} is not found", companyId, e);
     }
-
     return new ResponseEntity<Company>(HttpStatus.BAD_REQUEST);
-
   }
 
   @GetMapping("/company/search/{name}")
@@ -57,5 +55,4 @@ public class CompanyController {
     List<CompanyView> companyList = companyDao.findByName(name);
     return new ResponseEntity<List<CompanyView>>(companyList, HttpStatus.OK);
   }
-
 }

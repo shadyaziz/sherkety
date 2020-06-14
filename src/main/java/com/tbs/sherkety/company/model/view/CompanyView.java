@@ -1,4 +1,4 @@
-package com.tbs.sherkety.company.model;
+package com.tbs.sherkety.company.model.view;
 
 public interface CompanyView {
   public Integer getIdCompany();
@@ -12,4 +12,6 @@ public interface CompanyView {
   public String getSize();
 
   public String getLogo();
+
+  public float getRating();
 }

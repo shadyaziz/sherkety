@@ -1,17 +1,21 @@
 package com.tbs.sherkety.login.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.tbs.sherkety.company.review.model.Review;
 import com.tbs.sherkety.login.validation.PasswordCustomValidator;
 
 @Entity
@@ -44,14 +48,21 @@ public class User implements Serializable {
 
   @Column(name = "password")
   @JsonIgnore
-  private String hashedPassword;
+  private String encodedPassword;
 
   @Column(name = "error_counter")
   @JsonIgnore
-  private String errorCounter;
+  private Integer errorCounter;
 
   @Column
   private String role;
+
+  @OneToMany
+  @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
+  @JsonIgnore
+  @JsonProperty(access = Access.WRITE_ONLY)
+  @NotNull
+  private List<Review> reviewList;
 
   public Integer getIdUser() {
     return idUser;
@@ -85,11 +96,11 @@ public class User implements Serializable {
     this.password = password;
   }
 
-  public String getErrorCounter() {
+  public Integer getErrorCounter() {
     return errorCounter;
   }
 
-  public void setErrorCounter(String errorCounter) {
+  public void setErrorCounter(Integer errorCounter) {
     this.errorCounter = errorCounter;
   }
 
@@ -101,12 +112,12 @@ public class User implements Serializable {
     this.role = role;
   }
 
-  public String getHashedPassword() {
-    return hashedPassword;
+  public String getEncodedPassword() {
+    return encodedPassword;
   }
 
-  public void setHashedPassword(String hashedPassword) {
-    this.hashedPassword = hashedPassword;
+  public void setEncodedPassword(String encodedPassword) {
+    this.encodedPassword = encodedPassword;
   }
 
 }

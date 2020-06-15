@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import com.tbs.sherkety.company.review.model.Review;
+import com.tbs.sherkety.review.model.Review;
 
 @Entity
 public class Company implements Serializable {
@@ -48,7 +48,7 @@ public class Company implements Serializable {
   @Column
   @Min(1)
   @Max(5)
-  private float rating;
+  private Float rating;
 
   public Integer getIdCompany() {
     return idCompany;
@@ -122,11 +122,11 @@ public class Company implements Serializable {
   // return rating;
   // }
 
-  public float getRating() {
+  public Float getRating() {
     return rating;
   }
 
-  public void setRating(float rating) {
+  public void setRating(Float rating) {
     this.rating = rating;
   }
 

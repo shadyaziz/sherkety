@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.tbs.sherkety.company.review.model.Review;
 import com.tbs.sherkety.login.validation.PasswordCustomValidator;
+import com.tbs.sherkety.review.model.Review;
 
 @Entity
 public class User implements Serializable {
@@ -59,9 +59,6 @@ public class User implements Serializable {
 
   @OneToMany
   @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
-  @JsonIgnore
-  @JsonProperty(access = Access.WRITE_ONLY)
-  @NotNull
   private List<Review> reviewList;
 
   public Integer getIdUser() {

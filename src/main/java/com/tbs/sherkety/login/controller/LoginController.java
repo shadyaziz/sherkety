@@ -33,8 +33,6 @@ public class LoginController {
       UserSignIn dbUser = Optional.ofNullable(userDao.findByEmail(user.getEmail()))
           .orElseThrow(() -> new UserNotFoundException());
 
-      // String hashedPassword = LoginUtils.getHashedString(user.getPassword());
-
       if (!LoginUtils.comparePasswords(user.getPassword(), dbUser.getEncodedPassword())) {
         throw new PasswordIncorrectException();
       }

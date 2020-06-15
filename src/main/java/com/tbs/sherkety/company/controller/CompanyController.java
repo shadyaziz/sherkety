@@ -14,8 +14,8 @@ import com.tbs.sherkety.company.dao.CompanyDao;
 import com.tbs.sherkety.company.exception.CompanyNotFoundException;
 import com.tbs.sherkety.company.model.Company;
 import com.tbs.sherkety.company.model.view.CompanyView;
-import com.tbs.sherkety.company.review.dao.ReviewDao;
-import com.tbs.sherkety.company.review.model.Review;
+import com.tbs.sherkety.review.dao.ReviewDao;
+import com.tbs.sherkety.review.model.Review;
 
 @RestController
 public class CompanyController {

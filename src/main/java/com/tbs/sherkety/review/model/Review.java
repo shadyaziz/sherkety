@@ -1,9 +1,10 @@
-package com.tbs.sherkety.company.review.model;
+package com.tbs.sherkety.review.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,14 +31,14 @@ public class Review implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer idReview;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
   @JsonIgnore
   @JsonProperty(access = Access.WRITE_ONLY)
   @NotNull
   private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_id_company", referencedColumnName = "id_company")
   @JsonIgnore
   @JsonProperty(access = Access.WRITE_ONLY)
@@ -56,6 +58,7 @@ public class Review implements Serializable {
   private Timestamp creationDate;
 
   @Column
+  @NotEmpty
   private String text;
 
   public Integer getIdReview() {
@@ -104,5 +107,13 @@ public class Review implements Serializable {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }

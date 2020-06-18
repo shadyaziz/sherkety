@@ -1,9 +1,11 @@
-package com.tbs.sherkety.login.model;
+package com.tbs.sherkety.user.model;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +17,10 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.tbs.sherkety.login.validation.PasswordCustomValidator;
 import com.tbs.sherkety.review.model.Review;
+import com.tbs.sherkety.user.model.constant.UserStatus;
+import com.tbs.sherkety.user.validation.PasswordCustomValidator;
+import com.tbs.sherkety.user.validation.TransientGroup;
 
 @Entity
 public class User implements Serializable {
@@ -39,11 +43,10 @@ public class User implements Serializable {
   @Column(name = "display_name")
   private String displayName;
 
-  @PasswordCustomValidator
+  @PasswordCustomValidator(groups = TransientGroup.class)
   @Transient
   @JsonIgnore
   @JsonProperty(access = Access.WRITE_ONLY)
-  @NotNull
   private String password;
 
   @Column(name = "password")
@@ -60,6 +63,11 @@ public class User implements Serializable {
   @OneToMany
   @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
   private List<Review> reviewList;
+
+  @Column(name = "status")
+  @Enumerated(EnumType.STRING)
+  @JsonIgnore
+  private UserStatus userStatus;
 
   public Integer getIdUser() {
     return idUser;
@@ -117,4 +125,11 @@ public class User implements Serializable {
     this.encodedPassword = encodedPassword;
   }
 
+  public UserStatus getUserStatus() {
+    return userStatus;
+  }
+
+  public void setUserStatus(UserStatus userStatus) {
+    this.userStatus = userStatus;
+  }
 }

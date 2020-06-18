@@ -1,4 +1,4 @@
-package com.tbs.sherkety.login.exception;
+package com.tbs.sherkety.user.login.exception;
 
 public class UserNotFoundException extends Exception{
 	private static final long serialVersionUID = 1L;

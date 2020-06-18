@@ -1,7 +1,7 @@
 package com.tbs.sherkety.review.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.tbs.sherkety.company.model.Company;
-import com.tbs.sherkety.login.model.User;
+import com.tbs.sherkety.user.model.User;
 
 @Entity
 public class Review implements Serializable {
@@ -32,14 +32,14 @@ public class Review implements Serializable {
   private Integer idReview;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
+  @JoinColumn(name = "fk_id_user_review", referencedColumnName = "id_user")
   @JsonIgnore
   @JsonProperty(access = Access.WRITE_ONLY)
   @NotNull
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_id_company", referencedColumnName = "id_company")
+  @JoinColumn(name = "fk_id_company_review", referencedColumnName = "id_company")
   @JsonIgnore
   @JsonProperty(access = Access.WRITE_ONLY)
   @NotNull
@@ -55,7 +55,7 @@ public class Review implements Serializable {
 
   @Column(name = "creation_date")
   @CreationTimestamp
-  private Timestamp creationDate;
+  private LocalDateTime creationDate;
 
   @Column
   @NotEmpty
@@ -93,11 +93,11 @@ public class Review implements Serializable {
     this.rating = rating;
   }
 
-  public Timestamp getCreationDate() {
+  public LocalDateTime getCreationDate() {
     return creationDate;
   }
 
-  public void setCreationDate(Timestamp creationDate) {
+  public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
   }
 

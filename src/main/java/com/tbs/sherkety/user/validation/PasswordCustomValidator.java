@@ -1,4 +1,4 @@
-package com.tbs.sherkety.login.validation;
+package com.tbs.sherkety.user.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

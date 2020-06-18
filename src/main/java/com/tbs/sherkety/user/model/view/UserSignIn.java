@@ -1,4 +1,6 @@
-package com.tbs.sherkety.login.model.view;
+package com.tbs.sherkety.user.model.view;
+
+import com.tbs.sherkety.user.model.constant.UserStatus;
 
 public interface UserSignIn {
   public Integer getIdUser();
@@ -8,5 +10,7 @@ public interface UserSignIn {
   public String getEncodedPassword();
 
   public Integer getErrorCounter();
+
+  public UserStatus getUserStatus();
 
 }

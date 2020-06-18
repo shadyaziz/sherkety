@@ -1,8 +1,8 @@
-package com.tbs.sherkety.login.dao;
+package com.tbs.sherkety.user.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.tbs.sherkety.login.model.User;
-import com.tbs.sherkety.login.model.view.UserSignIn;
+import com.tbs.sherkety.user.model.User;
+import com.tbs.sherkety.user.model.view.UserSignIn;
 
 public interface UserDao extends JpaRepository<User, Integer> {
 

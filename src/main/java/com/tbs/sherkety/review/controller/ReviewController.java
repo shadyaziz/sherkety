@@ -52,9 +52,7 @@ public class ReviewController {
       logger.error("saveReview , Exception with the following userId : {} and companyId : {}",
           idUser, idCompany, e);
     }
-
     return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
-
   }
 
 
